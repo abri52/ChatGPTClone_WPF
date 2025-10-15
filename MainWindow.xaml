@@ -9,8 +9,8 @@
         Height="750"
         Width="800"
         WindowStartupLocation="CenterScreen"
-        Background="White"
-        Foreground="Black"
+        Background="#212121"
+        Foreground="White"
         >
     <Window.Resources>
         <local:MessageAlignmentConverter x:Key="messageAlignmentConverter" />
@@ -18,18 +18,16 @@
         <local:MessageBackgroundColorConverter x:Key="messageBackgroundColorConverter" />
 
         <SolidColorBrush x:Key="buttonBackgroundBrush"
-                         Color="#FFE0E0E0" />
+                         Color="White" />
         <SolidColorBrush x:Key="buttonPressedBackgroundBrush"
-                         Color="#FFD4D4D4" />
+                         Color="White" />
         <SolidColorBrush x:Key="buttonForegroundBrush"
                          Color="#2C2C2C" />
-
         <SolidColorBrush x:Key="textBlockForegroundBrush"
                          Color="#9E9E9E" />
 
         <SolidColorBrush x:Key="textBoxBorderBrush"
                          Color="#9E9E9E" />
-
 
         <Style x:Key="myButtonStyle"
                TargetType="Button">
@@ -87,6 +85,12 @@
             </Setter>
         </Style>
 
+        <Style x:Key="senderIconStyle"
+       TargetType="Path">
+            <Setter Property="Fill"
+            Value="{StaticResource buttonBackgroundBrush}" />
+        </Style>
+
         <Style x:Key="messageTextBoxStyle"
                TargetType="TextBox">
             <Setter Property="Background"
@@ -113,9 +117,12 @@
                                               VerticalScrollBarVisibility="Auto" />
                                 <TextBlock x:Name="placeHolderTextBlock"
                                            Visibility="Collapsed"
-                                           Text="Message ChatGPT"
+                                           Text="Ask something..."
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
+                                           Foreground="#fff"
+                                           Opacity="0.5"
+                                           FontSize="16"
                                            Margin="21,0,0,0" />
                             </Grid>
                         </Border>
@@ -134,14 +141,11 @@
     </Window.Resources>
 
 
-    <Border BorderBrush="LightGray"
+    <Border BorderBrush="Transparent"
             BorderThickness="1"
             Padding="0"
             Margin="10">
         <Grid Background="Transparent">
-
-
-
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
@@ -197,9 +201,10 @@
                 </Border>
             </Grid>
 
-            <Border Background="#f0f3f7"
+            <Border Background="#303030"
                     CornerRadius="20"
                     Margin="10"
+                    MaxWidth="750"
                     Grid.Row="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -210,25 +215,49 @@
                     <TextBox x:Name="messageTextBox"
                              AcceptsReturn="True"
                              AcceptsTab="False"
+                             Foreground="#fff"
+                             FontSize="16"
                              Style="{StaticResource messageTextBoxStyle}"
-                             PreviewKeyDown="messageTextBox_PreviewKeyDown" />
+                             PreviewKeyDown="messageTextBox_PreviewKeyDown" TextChanged="messageTextBox_TextChanged" />
 
                     <Button x:Name="sendButton"
                             FontFamily="Segoe MDL2 Assets"
-                            Content="&#xE74A;"
                             Width="35"
                             Height="35"
                             Margin="10,0,10,0"
                             Grid.Column="1"
                             Click="sendButton_Click">
+                        <Button.Content>
+                            <Viewbox Width="20" Height="20">
+                                <Path 
+                                    x:Name="sendIcon"
+                                    Data="M8.99992 16V6.41407L5.70696 9.70704C5.31643 10.0976 4.68342 10.0976 4.29289 9.70704C3.90237 9.31652 3.90237 8.6835 4.29289 8.29298L9.29289 3.29298L9.36907 3.22462C9.76184 2.90427 10.3408 2.92686 10.707 3.29298L15.707 8.29298L15.7753 8.36915C16.0957 8.76192 16.0731 9.34092 15.707 9.70704C15.3408 10.0732 14.7618 10.0958 14.3691 9.7754L14.2929 9.70704L10.9999 6.41407V16C10.9999 16.5523 10.5522 17 9.99992 17C9.44764 17 8.99992 16.5523 8.99992 16Z"
+                                    Fill="White"
+                                    Width="20"
+                                    Height="20"
+                                >
+                                    <Path.Style>
+                                        <Style TargetType="Path" BasedOn="{StaticResource senderIconStyle}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=Text.Length, ElementName=messageTextBox}"
+                                                 Value="1">
+                                                    <Setter Property="Fill"
+                                                Value="Black" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                            </Viewbox>
+                        </Button.Content>
                         <Button.Style>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource myButtonStyle}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=Text.Length, ElementName=messageTextBox}"
                                                  Value="0">
-                                        <Setter Property="Opacity"
-                                                Value="0.5" />
+                                        <Setter Property="Background"
+                                                Value="#424242" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

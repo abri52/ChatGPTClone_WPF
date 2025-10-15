@@ -75,17 +75,27 @@
 
             uiMessages.Add(response);
 
-            AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = client.CompleteChatStreamingAsync(apiMessages);
-            await foreach (StreamingChatCompletionUpdate completionUpdate in completionUpdates)
+            try
             {
-                if (completionUpdate.ContentUpdate.Count > 0)
+                AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = client.CompleteChatStreamingAsync(apiMessages);
+                await foreach (StreamingChatCompletionUpdate completionUpdate in completionUpdates)
                 {
-                    responseFinal += completionUpdate.ContentUpdate[0].Text;
-                    response.Text = responseFinal;
+                    if (completionUpdate.ContentUpdate.Count > 0)
+                    {
+                        responseFinal += completionUpdate.ContentUpdate[0].Text;
+                        response.Text = responseFinal;
 
-                    uiMessages.Remove(response);
-                    uiMessages.Add(response);
+                        uiMessages.Remove(response);
+                        uiMessages.Add(response);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                response.Text = ex.ToString();
+
+                uiMessages.Remove(response);
+                uiMessages.Add(response);
             }
 
             //await Task.Delay(2000);
@@ -154,6 +164,11 @@
 
                 throw;
             }
+        }
+
+        private void messageTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 
