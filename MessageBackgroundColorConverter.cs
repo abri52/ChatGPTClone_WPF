@@ -14,7 +14,7 @@ namespace ai
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var isRequest = (bool)value;
-            return isRequest ? new SolidColorBrush(Color.FromArgb(255, 240, 243, 247)) : Brushes.LightGray;
+            return isRequest ? new SolidColorBrush(Color.FromArgb(255, 47, 47, 47)) : Brushes.Transparent;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
