@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:ai"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="ui-sans-serif,-apple-system,system-ui,Segoe UI,Helvetica,Apple Color Emoji,Arial,sans-serif,Segoe UI Emoji,Segoe UI Symbol" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontFamily" Value="ui-sans-serif,-apple-system,system-ui,Segoe UI,Helvetica,Apple Color Emoji,Arial,sans-serif,Segoe UI Emoji,Segoe UI Symbol" />
+        </Style>
     </Application.Resources>
 </Application>

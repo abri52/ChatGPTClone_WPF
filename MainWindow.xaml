@@ -19,6 +19,7 @@
         <local:MessageBackgroundColorConverter x:Key="messageBackgroundColorConverter" />
         <local:MessageListVisiblityConverter x:Key="messageListVisiblityConverter" />
         <local:TitleVisiblityConverter x:Key="titleVisiblityConverter" />
+        <local:ThinkingConverter x:Key="thinkingConverter" />
 
         <SolidColorBrush x:Key="buttonBackgroundBrush"
                          Color="White" />
@@ -225,17 +226,56 @@
 
 
                                         <Border Background="{Binding IsRequest,Converter={StaticResource messageBackgroundColorConverter}}"
-                                                CornerRadius="18"
-                                                Padding="16,6"
-                                                VerticalAlignment="Center"
-                                                Grid.Column="1">
+                                            CornerRadius="18"
+                                            Padding="16,6"
+                                            VerticalAlignment="Center"
+                                            Grid.Column="1">
+
                                             <Grid>
+                                                <!-- The Circle -->
+                                                <Border x:Name="circle"
+                                                    Width="12"
+                                                    Height="12"
+                                                    Visibility="{Binding Text, Converter={StaticResource thinkingConverter}}"
+                                                    Background="White"
+                                                    CornerRadius="20000">
+                                                    <Border.RenderTransform>
+                                                        <ScaleTransform x:Name="circleScale" ScaleX="1" ScaleY="1" />
+                                                    </Border.RenderTransform>
+                                                    <Border.RenderTransformOrigin>0.5,0.5</Border.RenderTransformOrigin>
+                                                </Border>
+
                                                 <TextBlock Text="{Binding Text}"
-                                                           TextWrapping="Wrap"
-                                                           FontSize="16"
-                                                           Grid.Column="1" />
+                                                   TextWrapping="Wrap"
+                                                   FontSize="16"
+                                                   Grid.Column="1" />
                                             </Grid>
+
+                                            <!-- Circle Animation -->
+                                            <Border.Triggers>
+                                                <EventTrigger RoutedEvent="Loaded">
+                                                    <BeginStoryboard>
+                                                        <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                            <DoubleAnimation Storyboard.TargetName="circle"
+                                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                 From="1" To="1.25"
+                                                                 Duration="0:0:0.5"
+                                                                 AutoReverse="True"
+                                                                 RepeatBehavior="Forever"
+                                                            />
+                                                            <DoubleAnimation Storyboard.TargetName="circle"
+                                                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                 From="1" To="1.25"
+                                                                 Duration="0:0:0.5"
+                                                                 AutoReverse="True"
+                                                                 RepeatBehavior="Forever"
+                                                            />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Border.Triggers>
                                         </Border>
+
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
