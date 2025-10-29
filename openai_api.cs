@@ -5,7 +5,6 @@
     using OpenAI.Chat;
     using System.ClientModel;
     using System.Reflection;
-    using System.Windows;
 
     /// <summary>
     /// Defines the <see cref="openai_api" />

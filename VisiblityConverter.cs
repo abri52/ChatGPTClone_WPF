@@ -51,4 +51,19 @@ namespace ai
             throw new NotImplementedException();
         }
     }
+
+    public class MessageMarginConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool isUser = (bool)value;
+            return isUser ? new Thickness(100, 10, 0, 10) : new Thickness(0, 10, 100, 10);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

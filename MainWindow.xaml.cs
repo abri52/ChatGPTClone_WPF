@@ -6,6 +6,7 @@
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
 
     /// <summary>
@@ -40,6 +41,15 @@
             uiMessages = new ObservableCollection<Message>();
             messagesItemsControl.ItemsSource = uiMessages;
         }
+
+        private void CopyMessage_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.DataContext is Message message)
+            {
+                Clipboard.SetText(message.Text ?? "");
+            }
+        }
+
 
         /// <summary>
         /// The sendMessage
