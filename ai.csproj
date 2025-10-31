@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+	<AssemblyName>ai</AssemblyName>
+	<RootNamespace>ai</RootNamespace>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UserSecretsId>002f8621-9659-43df-b5be-8b82aa6c1c72</UserSecretsId>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

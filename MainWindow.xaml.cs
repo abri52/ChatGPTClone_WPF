@@ -1,5 +1,6 @@
 ﻿namespace ai
 {
+    using ai.Converters;
     using OpenAI.Chat;
     using System.ClientModel;
     using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@
     /// </summary>
     public partial class MainWindow : Window
     {
+
         /// <summary>
         /// Defines the uiMessages
         /// </summary>
@@ -42,7 +44,12 @@
             messagesItemsControl.ItemsSource = uiMessages;
         }
 
-        private void CopyMessage_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// The CopyContentsAction
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="RoutedEventArgs"/></param>
+        private void CopyContentsAction(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.DataContext is Message message)
             {
@@ -50,6 +57,14 @@
             }
         }
 
+        /// <summary>
+        /// The ReportMessageAction
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="RoutedEventArgs"/></param>
+        private void ReportMessageAction(object sender, RoutedEventArgs e)
+        {
+        }
 
         /// <summary>
         /// The sendMessage
@@ -176,9 +191,13 @@
             }
         }
 
+        /// <summary>
+        /// The messageTextBox_TextChanged
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="System.Windows.Controls.TextChangedEventArgs"/></param>
         private void messageTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-
         }
     }
 
